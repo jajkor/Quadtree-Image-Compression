@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "image_compression"
+version = "0.1.0"
+description = ""
+authors = ["Rob <play4rj@aol.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+numpy = "^2.2.5"
+pillow = "^11.2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+video = "image_compression.run_video:run"
