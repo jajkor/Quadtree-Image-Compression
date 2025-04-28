@@ -3,7 +3,7 @@ import os
 
 
 def run():
-    os.makedirs("animation", exist_ok=True)
+    os.makedirs("output", exist_ok=True)
 
     print("Running image compression...")
     subprocess.run(["poetry", "run", "python3", "image_compression/main.py"])
@@ -14,12 +14,12 @@ def run():
             "ffmpeg",
             "-y",
             "-framerate",
-            "2",
+            "1",
             "-i",
-            "animation/frame_%04d.jpg",
-            "animation/animation.mp4",
+            "output/frame_%04d.jpg",
+            "output/animation.mp4",
         ]
     )
 
     print("Playing video")
-    subprocess.run(["ffplay", "animation/animation.mp4"])
+    subprocess.run(["ffplay", "output/animation.mp4"])

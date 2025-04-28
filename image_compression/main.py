@@ -1,41 +1,34 @@
-from PIL import Image
-import numpy as np
-from numpy.core.multiarray import ndarray
-from quadtree import QTree, Point, Node
+import cv2
+
+import argparse
+from QTree import QTree
 
 
-def animate_subdivision(image_path: str, iteration_counts: list):
-    image = Image.open(image_path)
-    image_data = np.array(image, dtype=np.uint8)
-
-    last_iteration_count = 0
-    frame = 0
-    for iteration_count in iteration_counts:
-        frame += 1
-        last_iteration_count = iteration_count
-        subdivide_image(image, image_data)
-        # Image.fromarray(image_data).save(f"animation/frame_{frame:0>4}.jpg")
-
-
-def subdivide_image(image, image_data):
-    print()
+def displayQuadTree(
+    img_name,
+    threshold=7,
+    minCell=3,
+    line_border=1,
+    line_color=(0, 0, 255),
+):
+    imgT = cv2.imread(img_name)
+    qt = QTree(threshold, minCell, imgT)
+    qt.subdivide()
+    qtImg = qt.render_img(thickness=line_border, color=line_color)
+    file_name = "output/" + f"frame_{frame:0>4}.jpg"
+    print(file_name)
+    cv2.imwrite(file_name, qtImg)
 
 
 if __name__ == "__main__":
-    iteration_counts = [
-        *range(10),
-        *range(20, 100, 10),
-        200,
-        300,
-        500,
-        1000,
-        *range(2000, 20000, 1000),
-        80000,
-        80000,
-    ]
-    animate_subdivision("input/mount.jpg", iteration_counts)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-f", "--file", default="mount.jpg")
+    args = parser.parse_args()
 
-    # https://jrtechs.net/data-science/implementing-a-quadtree-in-python
-    tree = QTree(1, 100)
-    tree.subdivide()
-    tree.graph()
+    threshold_counts = [2**x for x in range(8, 0, -1)]
+
+    frame = 0
+    for i in threshold_counts:
+        frame += 1
+        displayQuadTree(args.file, threshold=i,
+                        line_color=(0, 0, 0), line_border=1)
