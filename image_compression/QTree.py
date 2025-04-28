@@ -19,7 +19,7 @@ class Node:
 
     def get_points(self, img):
         return img[
-            self.x0: self.x0 + self.get_width(), self.y0: self.y0 + self.get_height()
+            self.x0 : self.x0 + self.get_width(), self.y0 : self.y0 + self.get_height()
         ]
 
     def get_error(self, img):
@@ -48,13 +48,12 @@ class QTree:
 
     def get_points(self):
         return self.img[
-            self.root.x0: self.root.x0 + self.root.get_width(),
-            self.root.y0: self.root.y0 + self.root.get_height(),
+            self.root.x0 : self.root.x0 + self.root.get_width(),
+            self.root.y0 : self.root.y0 + self.root.get_height(),
         ]
 
     def subdivide(self):
-        recursive_subdivide(self.root, self.threshold,
-                            self.minPixelSize, self.img)
+        recursive_subdivide(self.root, self.threshold, self.minPixelSize, self.img)
 
     def render_img(self, thickness=1, color=(0, 0, 255)):
         imgc = self.img.copy()
@@ -66,12 +65,9 @@ class QTree:
             rAvg = math.floor(np.mean(pixels[:, :, 1]))
             bAvg = math.floor(np.mean(pixels[:, :, 2]))
 
-            imgc[n.x0: n.x0 + n.get_width(), n.y0: n.y0 +
-                 n.get_height(), 0] = gAvg
-            imgc[n.x0: n.x0 + n.get_width(), n.y0: n.y0 +
-                 n.get_height(), 1] = rAvg
-            imgc[n.x0: n.x0 + n.get_width(), n.y0: n.y0 +
-                 n.get_height(), 2] = bAvg
+            imgc[n.x0 : n.x0 + n.get_width(), n.y0 : n.y0 + n.get_height(), 0] = gAvg
+            imgc[n.x0 : n.x0 + n.get_width(), n.y0 : n.y0 + n.get_height(), 1] = rAvg
+            imgc[n.x0 : n.x0 + n.get_width(), n.y0 : n.y0 + n.get_height(), 2] = bAvg
 
         if thickness > 0:
             for n in c:

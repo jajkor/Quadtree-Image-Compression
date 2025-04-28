@@ -15,18 +15,18 @@ def displayQuadTree(
     qt = QTree(threshold, minCell, imgT)
     qt.subdivide()
     qtImg = qt.render_img(thickness=line_border, color=line_color)
-    file_name = "output/" + f"frame_{frame:0>4}.jpg"
+    file_name = "output/" + f"frame_{frame:0>4}.png"
     print(file_name)
     cv2.imwrite(file_name, qtImg)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--file", default="input/mount.jpg")
+    parser.add_argument("-f", "--file", default="input/Reflections.png")
     parser.add_argument("-b", "--border", default=1)
     args = parser.parse_args()
 
-    threshold_counts = [2**x for x in range(8, 0, -1)]
+    threshold_counts = [2**x for x in range(7, -7, -1)]
 
     frame = 0
     for i in threshold_counts:
