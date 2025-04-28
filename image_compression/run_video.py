@@ -6,7 +6,9 @@ def run():
     os.makedirs("output", exist_ok=True)
 
     print("Running image compression...")
-    subprocess.run(["poetry", "run", "python3", "image_compression/main.py"])
+    subprocess.run(
+        ["poetry", "run", "python3", "image_compression/main.py", "--border", "0"]
+    )
 
     print("Converting sequence to video...")
     subprocess.run(

@@ -44,7 +44,7 @@ class QTree:
         self.min_size = minPixelSize
         self.minPixelSize = minPixelSize
         self.img = img
-        self.root = Node(0, 0, img.shape[0], img.shape[1])
+        self.root = Node(0, 0, self.img.shape[0], self.img.shape[1])
 
     def get_points(self):
         return self.img[
